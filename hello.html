@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+    <title>Hello</title>
+</head>
+<body ng-init="names=['Rajesh', 'Deepak', 'Navdeep']">
+<div>
+    <label>Name:</label>
+    <input type="text" ng-model="yourName" placeholder="Enter your name">Hello {{yourName}}!!!
+</div>
+<hr>
+    
+<div>
+    <label>Name:</label>
+    <input type="text" ng-model="newName" placeholder="Enter your name">Hello {{newName}}!!!
+    <ul>
+        <li ng-repeat="name in names">{{ name }}</li>
+    </ul>
+</div>
+<hr>
+    
+<div ng-controller="addController">
+    <label>Name:</label>
+    <input type="text" ng-model="newAddName" placeholder="Enter your name">
+    <button ng-click="addName()">Add</button>Hello {{newAddName}}!!!
+    <ul>
+        <li ng-repeat="name in names">{{ name }}</li>
+    </ul>
+</div>
+<hr>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular.min.js"></script>
+<script type="text/javascript">
+    function addController($scope){
+        $scope.addName = function(){
+            $scope.names.push($scope.newAddName);
+        }
+    }
+</script>
+</body>
+</html>
