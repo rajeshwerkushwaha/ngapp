@@ -28,19 +28,6 @@
     </ul>
 </div>
 <hr>
-
-<div ng-controller="eventController">
-    <label>Total Event: {{events.length}}</label>
-    <label>Remaining Event: {{remaining()}}</label>
-    <ul class="unstyled">
-        <li ng-repeat="event in events">
-            <input type="checkbox" ng-model="event.done">{{ event.name }}
-        </li>
-    </ul>
-    <input type="text" ng-model="newEvent" placeholder="Enter event name">
-    <button ng-click="addEvent()">Add Event</button>
-</div>
-<hr>
     
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular.min.js"></script>
 <script type="text/javascript">
@@ -53,20 +40,6 @@
         $scope.addName = function(){
             $scope.names.push($scope.newAddName);
         }
-    }
-    
-    function eventController($scope){
-        $scope.events = [{'name':'Event 1', 'done': false}, {'name':'Event 2', 'done': false}, {'name':'Event 3', 'done': false}];
-        $scope.addEvent = function(){
-            $scope.events.push({'name':$scope.newEvent, 'done': false});
-        }
-        $scope.remaining = function() {
-            var count = 0;
-            angular.forEach($scope.events, function(event) {
-                count += event.done ? 0 : 1;
-            });
-            return count;
-        };
     }
 </script>
 </body>
