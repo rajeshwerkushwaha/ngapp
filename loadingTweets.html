@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html ng-app='myTweets'>
+<head>
+    <title>Hello</title>
+</head>
+<body>
+
+<div ng-controller="myController">
+    <label>Total Tweets: {{tweets.length}}</label><br>
+    <ul>
+        <li ng-repeat="tweet in tweets | limitTo:currentDisplay">
+            <button>Edit</button>&nbsp;
+            <button ng-click="deleteTweet($index)">Delete</button>
+            {{ tweet.content }}
+        </li>
+    </ul>
+    <button ng-click="loadMoreTweets()">Load More Tweets</button><br><br>
+    <input type="text" ng-model="newTweet" placeholder="Enter new tweet content"><br>
+    <button ng-click="addTweet()">Add Tweet</button>
+</div>
+<hr>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular.min.js"></script>
+<script type="text/javascript">
+    var app = angular.module('myTweets', []);
+    
+    app.controller('myController', function($scope){
+        $scope.currentDisplay=2;
+        $scope.tweets = [
+            {'content':'tweet 1'},
+            {'content':'tweet 2'}
+        ];
+      
+        $scope.addTweet = function(){
+            $scope.tweets.push({'content': $scope.newTweet});
+            $scope.newTweet = '';
+        };
+        
+        $scope.deleteTweet = function(index) {
+            $scope.tweets.splice(index,1);
+        };
+        
+        $scope.loadMoreTweets = function() {
+            $scope.currentDisplay = $scope.currentDisplay * 2;
+        };
+    });
+    
+    /*
+    app.directive('delete', function(){
+       return function(scope, element, attr){
+           element.bind('click', function(attr){
+               scope.deleteTweet(attr.deleteTweet);
+           });
+       } 
+    });
+    
+    app.directive('loadMoreTweets', function(){
+       return {
+           scope:{},
+           link: function(scope, element, attr){
+               scope.currentDisplay = 2*scope.currentDisplay;
+           }
+       };
+    });
+    */
+</script>
+</body>
+</html>
