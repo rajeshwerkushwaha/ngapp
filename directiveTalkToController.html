@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+        var app = angular.module("app", []);
+        
+        app.controller('entryCtrl', function ($scope) {
+            $scope.entries = [
+                {'name':'Do not put curson on me...'}
+            ];
+            $scope.youEnter = function(){
+                console.log('You rascle...');
+            };
+            
+            $scope.youLeave = function(){
+                console.log('Just go away...');
+            };
+            
+        });
+
+        app.directive('enter', function(){
+            return function(scope, element, attr){
+                element.bind('mouseenter', function(){
+                    scope.youEnter();
+                });
+            };
+        });
+        
+        app.directive('leave', function(){
+            return function(scope, element, attr){
+                element.bind('mouseleave', function(){
+                    scope.youLeave();
+                });
+            };
+        });
+
+    </script>
+
+</head>
+<body>
+    <div ng-app="app">
+        <div ng-controller="entryCtrl">
+            <div ng-repeat="entry in entries" enter leave>
+                {{entry.name}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
