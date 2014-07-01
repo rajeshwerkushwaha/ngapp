@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+</head>
+
+<body ng-app>
+    <table ng-controller="controller">
+        <input type="text" ng-model="searchText" />
+        <div>
+            <tr ng-repeat="contact in contacts | filter:searchText">
+                <td>{{contact.city}}
+                </td>
+                <td>{{contact.firstName}}</td>
+                <td>
+                    <button ng-click="getRowData(contact)">view</button>
+            </tr>
+        </div>
+    </table>
+    <script>
+        function controller($scope, $http) {
+            $scope.contacts = [
+                {'city':'City 1', 'firstName':'Firstname 1'},
+                {'city':'City 2', 'firstName':'Firstname 2'},
+            ];
+            
+            $scope.getRowData = function(data) {
+                console.log(data.city+'==='+data.firstName);
+            }
+        }
+    </script>
+</body>
+
+</html>

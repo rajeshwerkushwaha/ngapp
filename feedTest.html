@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+        var myApp = angular.module("myApp", []);
+        
+        
+        myApp.service('myservice', ['$http', '$q', function ($http, $q) {
+            var entries = [];
+            
+            function getData(){
+                var arr1 = [];
+                var BlogFeeds = "//www.blogger.com/feeds/7833828309523986982/posts/default?start-index=0001&max-results=10&alt=json&callback=JSON_CALLBACK";
+
+                $http.jsonp(BlogFeeds)
+                .success(function(data){
+                    angular.forEach(data.feed.entry, function(entryX){
+                        arr1.push(entryX);
+                    });
+                    angular.copy(arr1, entries);
+                })
+                .error(function (data) {
+                    $scope.data = "Request failed";
+                });
+            }
+            
+            return {
+                getData: getData,
+                entries: entries
+            };
+            
+        }]);
+
+        
+        myApp.controller('picCtrl', function ($scope, myservice) {
+    
+            $scope.message = "Welcome";
+            $scope.entries = myservice.entries;
+            
+            myservice.getData();
+            
+        });
+
+        
+
+    </script>
+
+</head>
+<body>
+    <div ng-app="myApp">
+        <div ng-controller="picCtrl">
+            {{message}}
+            <span ng-repeat="entry in entries">
+                <span >
+                    <img ng-src="{{entry.media$thumbnail.url}}" />
+                    {{entry.title.$t}}
+                </span>
+            </span>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!-- http://stackoverflow.com/questions/24417749/angularjs-scope-not-binding-data-in-ng-repeat -->
