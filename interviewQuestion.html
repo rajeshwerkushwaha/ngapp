@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html ng-app='myModule'>
+<head>
+    <title>Interview Question for tooltip</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular.min.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+</head>
+<body>
+
+<div ng-controller="myController">
+   <div ng-repeat="item in items">
+   <span tooltip-placement="right" tooltip="{{item.description}}">
+       {{item.text}}
+   </span>
+</div>
+</div>
+<hr>
+    
+
+<script type="text/javascript">
+    var app = angular.module('myModule', ['ui.bootstrap']);
+    
+    app.controller('myController', function($scope){
+
+        $scope.items = [
+            {'text':'Item1 Text', 'description':'Item1 Description', 'color':'red'},
+            {'text':'Item2 Text', 'description':'Item2 Description', 'color':'green'},
+        ];
+
+    });
+
+    /*
+    app.directive('tooltip', function(){
+       return function(scope, element, attr){
+           element.bind('mouseenter', function(attr){
+               console.log('I am in');
+           });
+           element.bind('mouseleave', function(attr){
+               console.log('I am out');
+           });
+       };
+    });
+            
+    
+    app.directive('tooltipOptions1', function(){
+       return {
+           scope:{},
+           link: function(scope, element, attr){
+               scope.currentDisplay = 2*scope.currentDisplay;
+           }
+       };
+    });
+    
+    */
+    
+    
+</script>
+</body>
+</html>
+
